@@ -12,7 +12,7 @@ let medicines;try{const raw=localStorage.getItem(KEY);medicines=raw?JSON.parse(r
 let category='全部',statusFilter='all',query='',currentId=null,photo='',scanTimer=null,openTimer=null,toastTimer;
 function persist(next){try{localStorage.setItem(KEY,JSON.stringify(next));medicines=next;return true}catch{toast('保存失败：浏览器存储空间不足，请先导出备份。');return false}}
 const plantCells=[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[3,2],[1,2],[0,1],[2,1],[2,2]];
-function plant(i=0,cls=''){const [c,r]=plantCells[Number(i)%plantCells.length]||plantCells[0];return `<svg class="plant ${cls}" viewBox="${138+c*128} ${143+r*130} 93 100" aria-hidden="true"><image href="assets/botanical-sheet.png" width="1254" height="1254"/></svg>`}
+function plant(i=0,cls=''){const [c,r]=plantCells[Number(i)%plantCells.length]||plantCells[0];return `<svg class="plant ${cls}" viewBox="${143+c*128} ${147+r*130} 83 94" aria-hidden="true"><image href="assets/botanical-sheet.png" width="1254" height="1254"/></svg>`}
 function toast(message){clearTimeout(toastTimer);$('#toast').textContent=message;$('#toast').classList.add('visible');toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),3500)}
 function filtered(){return medicines.filter(m=>(category==='全部'||m.category===category)&&(statusFilter==='all'||status(m)===statusFilter)&&(!query||m.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())))}
 function render(){
