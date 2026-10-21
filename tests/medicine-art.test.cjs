@@ -1,0 +1,22 @@
+const {readFileSync}=require('node:fs');
+const {runInNewContext}=require('node:vm');
+const assert=require('node:assert/strict');
+const art=readFileSync('dist/medicine-art.js','utf8');
+const app=readFileSync('dist/app.js','utf8').split('let medicines;')[0];
+const context={Date,console};
+runInNewContext(app+'\n'+art+'\nthis.resolve=medicineMark;this.records=seed();this.draw=medicineArt;',context);
+const expected=['herb:banlangen','herb:lianqiao','herb:guanghuoxiang','text:布洛芬','text:氯雷他定','text:维生素C','herb:jinyinhua','herb:chenpi','herb:juhua','icon:iodine','icon:bandage','icon:swab'];
+const marks=context.records.map(m=>context.resolve(m));
+marks.forEach((a,i)=>assert.equal(a.kind+':'+(a.key||a.text),expected[i]));
+assert.equal(new Set(marks.map(a=>a.key||a.text)).size,12,'Initial records have distinct, relevant marks');
+assert.equal(context.resolve({name:'未知药品',category:'中药',plant:6}).kind,'text','Old random plant indices ignored');
+assert.equal(context.resolve({name:'某某片',category:'西药',ingredients:'薄荷'}).kind,'text');
+assert.equal(context.resolve({name:'藿香',category:'中药',ingredients:''}).kind,'text','Do not conflate 藿香 with 薄荷');
+assert.equal(context.resolve({name:'新录入药品',category:'中成药',ingredients:'广藿香'}).key,'guanghuoxiang');
+assert.equal(context.resolve({name:'新录入药品',category:'中成药',ingredients:'薄荷'}).key,'mint');
+assert.equal(context.resolve({name:'板蓝根颗粒',category:'中成药',visualMode:'text'}).text,'板蓝根');
+assert.equal(context.resolve({name:'创可贴',category:'其他',visualMode:'text'}).kind,'text');
+assert.equal(context.resolve({name:'陈皮',category:'中药'}).key,'chenpi');
+for(const m of context.records){const html=context.draw(m);assert.ok(!html.includes('undefined'));assert.ok(html.includes('aria-label='));}
+assert.ok(context.draw({name:'<img src=x onerror=1>',category:'西药'}).includes('&lt;'));
+console.log('PASS: 12 distinct seeded marks, legacy fallback, category rules, manual text mode, generated markup escaping');
