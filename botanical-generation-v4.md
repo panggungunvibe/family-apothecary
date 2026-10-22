@@ -1,6 +1,6 @@
 # Ingredient illustrations v4
 
-Mode: built-in imagegen. Final asset: dist/assets/herbs-v4.png (1254 × 1254 RGBA, 2 × 2 cells). Reference: existing v3 botanical atlas, style only. The renderer uses normalized 512-unit SVG cells. Alpha is preserved. Decorative identity marks, not verified botanical identification plates.
+Mode: built-in imagegen. Project asset: site/assets/herbs-v4.png (integrated at 768 × 768 RGBA, 2 × 2 cells; original generation 1254 × 1254). Reference: existing v3 botanical atlas, style only. The renderer uses normalized 512-unit SVG cells. Alpha is preserved. Decorative identity marks, not verified botanical identification plates.
 
 ## Prompt
 

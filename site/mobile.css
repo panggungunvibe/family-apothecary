@@ -22,7 +22,7 @@
  .row-category{flex-direction:row;gap:9px;padding:12px 2px 10px;justify-content:flex-start}
  .row-category b{writing-mode:horizontal-tb;font-size:13px;letter-spacing:3px}.row-category small{font-size:10px}
  .drawer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
- .drawer{height:181px}.drawer-display{height:78px;padding-top:5px}.drawer .medicine-art{width:76px;height:72px;max-width:58%}
+ .drawer{height:181px}.drawer-display{height:78px;padding-top:5px}.drawer .medicine-art{width:76px;height:72px;max-width:58%}.drawer .botanical-art,.drawer .formula-art{width:62px;height:59px;max-width:45%}
  .drawer-front{gap:15px;padding:0 8px 11px}.plaque{min-width:90px;min-height:35px;font-size:15px;line-height:1.25;padding:5px 7px;letter-spacing:0}
  .drawer-empty{padding-bottom:19px;gap:20px}.drawer-empty .empty-label{min-width:90px}
  .word-seal{font-size:15px}.word-seal.long-word{font-size:12px}
@@ -44,7 +44,7 @@
  dialog:not(.receipt-dialog)[open]{animation:sheet-in .3s ease-out}
  .modal-top{position:sticky;top:0;z-index:5;background:#fcfcf7;padding:10px 20px 4px;border-bottom:1px solid #edf0e4;letter-spacing:0;font-size:11px}
  .close{width:44px;height:44px;font-size:27px;flex-shrink:0}.modal-body{padding:10px 20px 20px}.modal-body h2{font-size:25px}
- .modal-subtitle{font-size:13px;line-height:1.8}.upload-area{min-height:190px;margin-top:20px}.upload-area small{font-size:12px}.mock-note{font-size:12px}
+ .modal-subtitle{font-size:13px;line-height:1.8}.upload-area{min-height:190px;margin-top:20px}.upload-area small{font-size:12px}.privacy-note,.ai-review{font-size:12px}
  .form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:17px 12px}
  .field{min-width:0;font-size:13px;gap:9px}.field input,.field select,.field textarea{font-size:16px;min-height:48px;min-width:0;max-width:100%;padding:11px 10px;border-radius:7px}
  .field:has(select[name="visualMode"]){grid-column:1 / -1}.field:has(select[name="category"]){grid-column:1 / -1}

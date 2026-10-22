@@ -1,6 +1,6 @@
 # Botanical atlas v3
 
-Mode: built-in imagegen. Reference: user's botanical chromolithograph attachment. Final file: dist/assets/botanical-atlas-v3.png (1536 × 1024 RGBA). Each cell 512 × 512; alpha is preserved.
+Mode: built-in imagegen. Reference: user's botanical chromolithograph attachment. Project asset: site/assets/botanical-atlas-v3.png (integrated at 768 × 512 RGBA; original generation 1536 × 1024). The 3 × 2 atlas is cropped through normalized SVG viewBoxes; alpha is preserved.
 
 ## Initial prompt
 
