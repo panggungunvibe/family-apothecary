@@ -2,6 +2,10 @@
 
 百子柜风格、移动端自适应的家庭药品管理站点。药品档案保存在浏览器 `localStorage`，支持按名称搜索、效期筛选、抽屉开启动效与打印小票。
 
+**在线体验：** [family-apothecary-yunjie.ivory-cedar-9569.chatgpt.site](https://family-apothecary-yunjie.ivory-cedar-9569.chatgpt.site/)
+
+> 本项目用于家庭药品信息整理，不提供诊断、处方或用药建议。OCR 结果请始终与药品包装、说明书或医嘱核对。
+
 ## 浏览器本地 OCR
 
 照片识别完全在浏览器内运行：
@@ -44,3 +48,7 @@ npm test
 本地 OCR 使用 [Tesseract.js](https://github.com/naptha/tesseract.js) 6.0.1；运行时从 jsDelivr 加载，项目未复制其源码或训练数据。
 
 小票撕边与打印动效参考 [shengyuanshi/daily-receipt-opensource](https://github.com/shengyuanshi/daily-receipt-opensource)，MIT 许可保存在 `site/licenses/daily-receipt-MIT.txt`。
+
+## 开源许可
+
+项目源码按 [MIT License](LICENSE) 开源。第三方组件和参考项目仍遵循各自的许可条款。
