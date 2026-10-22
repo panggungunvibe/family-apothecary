@@ -2,6 +2,8 @@
 
 百子柜风格、移动端自适应的家庭药品管理站点。药品档案保存在浏览器 `localStorage`，支持按名称搜索、效期筛选、抽屉开启动效与打印小票。
 
+首次打开不注入示例药品；分类为空时只显示简洁的添加入口，不用空抽屉占位。旧版已保存的演示记录会自动清理，用户自己录入的药品保留。
+
 **在线体验：** [family-apothecary-yunjie.ivory-cedar-9569.chatgpt.site](https://family-apothecary-yunjie.ivory-cedar-9569.chatgpt.site/)
 
 > 本项目用于家庭药品信息整理，不提供诊断、处方或用药建议。OCR 结果请始终与药品包装、说明书或医嘱核对。

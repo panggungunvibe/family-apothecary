@@ -21,13 +21,12 @@
  .cabinet{padding:5px 9px 12px}.cabinet-row{display:block;margin-bottom:6px}
  .row-category{flex-direction:row;gap:9px;padding:12px 2px 10px;justify-content:flex-start}
  .row-category b{writing-mode:horizontal-tb;font-size:13px;letter-spacing:3px}.row-category small{font-size:10px}
+ .row-category .row-add{margin:0 0 0 auto;width:32px;height:32px}.category-empty{min-height:76px;flex-direction:column;gap:10px}.category-empty button{min-height:38px;padding:7px 13px}
  .drawer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  .drawer{height:181px}.drawer-display{height:78px;padding-top:5px}.drawer .medicine-art{width:76px;height:72px;max-width:58%}.drawer .botanical-art,.drawer .formula-art{width:62px;height:59px;max-width:45%}
  .drawer-front{gap:15px;padding:0 8px 11px}.plaque{min-width:90px;min-height:35px;font-size:15px;line-height:1.25;padding:5px 7px;letter-spacing:0}
- .drawer-empty{padding-bottom:19px;gap:20px}.drawer-empty .empty-label{min-width:90px}
  .word-seal{font-size:15px}.word-seal.long-word{font-size:12px}
  .drawer:hover{transform:none}.drawer.open{transform:translateY(9px) scale(1.015)}
- .drawer-empty:last-child:nth-child(odd){display:none}
  .search-results{margin:0 0 20px}.search-results button{min-height:48px;align-items:center;font-size:14px}.search-results small{font-size:11px;white-space:nowrap}
  .mobile-nav{position:fixed;z-index:15;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;height:auto;min-height:76px;padding:6px 20px calc(6px + env(safe-area-inset-bottom));background:#fafbf6f5;backdrop-filter:blur(18px);border-top:1px solid #dce2d4;box-shadow:0 -5px 22px #35472d08}
  .mobile-nav button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;color:#929a87;font-size:11px}

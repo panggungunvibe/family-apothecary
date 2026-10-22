@@ -3,9 +3,16 @@ const {runInNewContext}=require('node:vm');
 const assert=require('node:assert/strict');
 const art=readFileSync('site/medicine-art.js','utf8');
 const ocr=readFileSync('site/ocr.js','utf8');
-const app=readFileSync('site/app.js','utf8').split('let medicines;')[0];
+const appSource=readFileSync('site/app.js','utf8');
+const app=appSource.split('function loadMedicines')[0];
 const context={Date,console};
-runInNewContext(app+'\n'+art+'\n'+ocr+'\nthis.resolve=medicineMark;this.records=seed();this.draw=medicineArt;this.parseOcr=parseMedicineText;',context);
+runInNewContext(app+'\n'+art+'\n'+ocr+'\nthis.resolve=medicineMark;this.draw=medicineArt;this.parseOcr=parseMedicineText;',context);
+context.records=[
+ {name:'板蓝根颗粒',category:'中成药'},{name:'连花清瘟胶囊',category:'中成药'},{name:'藿香正气胶囊',category:'中成药'},
+ {name:'布洛芬缓释胶囊',category:'西药'},{name:'氯雷他定片',category:'西药'},{name:'维生素 C 片',category:'西药'},
+ {name:'金银花',category:'中药'},{name:'陈皮',category:'中药'},{name:'菊花',category:'中药'},
+ {name:'医用碘伏',category:'其他'},{name:'创可贴',category:'其他'},{name:'医用棉签',category:'其他'}
+];
 const expected=['formula:板蓝根','formula:连花清瘟','formula:藿香正气','icon:pill','icon:pill','icon:pill','herb:jinyinhua','herb:chenpi','herb:juhua','icon:iodine','icon:bandage','icon:swab'];
 const marks=context.records.map(m=>context.resolve(m));
 marks.forEach((a,i)=>assert.equal(a.kind+':'+(a.key||a.text||a.label),expected[i]));
@@ -39,4 +46,7 @@ assert.ok(!parsed.uncertainFields.includes('药品名称'));
 const tool=context.parseOcr('医用弹性绷带\n规格：1卷','中药');
 assert.equal(tool.category,'其他');
 assert.equal(tool.name,'医用弹性绷带');
+assert.ok(!appSource.includes('function seed()'),'不再内置示例药品');
+assert.ok(!appSource.includes('drawer-empty'),'不再渲染空抽屉');
+assert.ok(appSource.includes("filter(m=>!m?.demo"),'会清理旧版演示数据');
 console.log('PASS: art matching, medical fallbacks, local OCR parsing, date normalization, escaping');
