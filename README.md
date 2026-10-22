@@ -30,6 +30,18 @@
 
 植物与配方图样只用于收纳识别，不作药材鉴定或处方依据。新图谱由内置 imagegen 生成，提示词与文件说明见 `botanical-generation-v5.md`。
 
+### 植物图谱预览
+
+图谱原图已收录在 [`site/assets`](site/assets)，运行时会按药名和配方规则裁切、组合成抽屉标识。
+
+| 单味植物图谱 | 基础中药图谱 |
+| --- | --- |
+| <img src="site/assets/botanical-atlas-v3.png" alt="单味植物图谱" width="420"> | <img src="site/assets/herbs-v4.png" alt="基础中药图谱" width="420"> |
+
+| 中药图谱 A | 中药图谱 B |
+| --- | --- |
+| <img src="site/assets/tcm-atlas-a.png" alt="中药图谱 A" width="420"> | <img src="site/assets/tcm-atlas-b.png" alt="中药图谱 B" width="420"> |
+
 ## 手机端
 
 760px 以下启用底部导航、固定拍照入口、双列抽屉、横向分类、底部录入弹层和安全区适配。320px 窄屏表单降为单列；桌面保持每排五格。植物/配方标本缩为抽屉面积约四分之一，药名黑色签牌与金属圆环扣保持突出。
