@@ -2,19 +2,17 @@
 
 百子柜风格、移动端自适应的家庭药品管理站点。药品档案保存在浏览器 `localStorage`，支持按名称搜索、效期筛选、抽屉开启动效与打印小票。
 
-## 识别流程
+## 浏览器本地 OCR
 
-站点已从固定模拟数据切换为真实图片识别：
+照片识别完全在浏览器内运行：
 
-1. 浏览器拍摄或选择药品包装，压缩为最长边 900px 的 JPEG。
-2. 同域 `POST /api/recognize` 把照片发送给服务端 Worker。
-3. Worker 使用 OpenAI Responses API 的图片输入与严格 JSON Schema，抄录药名、分类、成分/配方、生产日期、到期日期、有效期、每日次数、每次用量和包装数量。
-4. 模型看不清或包装未出现的字段必须留空，并列入“不确定字段”。
-5. 结果先进入可编辑表单，用户核对实物包装后才能保存。
+1. 浏览器拍摄或选择药品包装，分别生成识别用高清副本与保存用轻量副本。
+2. 首次使用从固定版本 CDN 下载 Tesseract.js、WebAssembly 核心和简体中文/英文文字库，之后由浏览器缓存。
+3. Web Worker 在设备本地执行 OCR，不把照片发送到站点 Worker 或模型 API。
+4. 本地规则从 OCR 原文中整理药名、分类、成分/配方、生产日期、到期日期、有效期、每日次数、每次用量和包装数量。
+5. 未识别字段保持空白，并在确认页标出；用户对照实物包装核对后才能保存。
 
-模型不根据药名猜配方或用量，也不提供诊疗建议。照片不写入服务端存储；保存药品时，压缩照片与记录一并留在当前浏览器。
-
-生产环境需要配置 Sites secret `OPENAI_API_KEY`。可选的非敏感变量 `OPENAI_VISION_MODEL` 默认值为 `gpt-5-mini`。密钥不得写入源码、前端或 `.openai/hosting.json`。
+本地 OCR 不理解医学语义，不根据药名猜配方或用量，也不提供诊疗建议。保存时只保留用户确认过的字段和压缩照片，OCR 原文不会写入档案。
 
 ## 图样库
 
@@ -41,6 +39,8 @@ npm run build
 npm test
 ```
 
-运行本地 Worker 预览时可按 Sites 本地预览说明启动。纯静态文件也可在 `site/` 下单独查看，但 `/api/recognize` 只有 Worker 环境可用。
+运行本地 Worker 预览时可按 Sites 本地预览说明启动。OCR 需要网络首次加载文字识别组件，但照片与识别结果不会上传。
+
+本地 OCR 使用 [Tesseract.js](https://github.com/naptha/tesseract.js) 6.0.1；运行时从 jsDelivr 加载，项目未复制其源码或训练数据。
 
 小票撕边与打印动效参考 [shengyuanshi/daily-receipt-opensource](https://github.com/shengyuanshi/daily-receipt-opensource)，MIT 许可保存在 `site/licenses/daily-receipt-MIT.txt`。

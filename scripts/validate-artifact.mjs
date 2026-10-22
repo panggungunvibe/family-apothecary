@@ -15,21 +15,6 @@ assert.equal(typeof worker?.fetch,'function',`${pathToFileURL(workerPath)} must 
 const page=await worker.fetch(new Request('https://example.test/'),{},{});
 assert.equal(page.status,200);
 assert.match(await page.text(),/家庭药箱/);
-const missingKey=await worker.fetch(new Request('https://example.test/api/recognize',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({image:'data:image/jpeg;base64,AA==',categoryHint:'西药'})}),{},{});
-assert.equal(missingKey.status,503);
-const originalFetch=globalThis.fetch;
-let modelRequest;
-globalThis.fetch=async(url,init)=>{
- modelRequest={url,body:JSON.parse(init.body)};
- const record={name:'测试药片',category:'西药',ingredients:'测试成分',production:'2026-01-01',expiry:'2028-01-01',shelfLife:'24个月',frequency:'每日2次',dosage:'每次1片',quantity:'12片',confidence:.92,uncertainFields:[],warnings:[]};
- return new Response(JSON.stringify({output:[{content:[{type:'output_text',text:JSON.stringify(record)}]}]}),{status:200,headers:{'content-type':'application/json'}});
-};
-const recognized=await worker.fetch(new Request('https://example.test/api/recognize',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({image:'data:image/jpeg;base64,AA==',categoryHint:'西药'})}),{OPENAI_API_KEY:'test-only'},{});
-globalThis.fetch=originalFetch;
-assert.equal(recognized.status,200);
-assert.equal((await recognized.json()).data.name,'测试药片');
-assert.equal(modelRequest.url,'https://api.openai.com/v1/responses');
-assert.equal(modelRequest.body.store,false);
-assert.equal(modelRequest.body.text.format.strict,true);
-assert.equal(modelRequest.body.input[1].content[1].type,'input_image');
-console.log('Artifact is valid ESM, serves the app, protects the model route, and parses structured vision output.');
+const removedApi=await worker.fetch(new Request('https://example.test/api/recognize',{method:'POST'}),{},{});
+assert.equal(removedApi.status,405);
+console.log('Artifact is valid ESM, serves the app, and exposes no server-side OCR upload route.');
