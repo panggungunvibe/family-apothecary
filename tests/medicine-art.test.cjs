@@ -6,7 +6,7 @@ const ocr=readFileSync('site/ocr.js','utf8');
 const appSource=readFileSync('site/app.js','utf8');
 const app=appSource.split('function loadMedicines')[0];
 const context={Date,console};
-runInNewContext(app+'\n'+art+'\n'+ocr+'\nthis.resolve=medicineMark;this.draw=medicineArt;this.parseOcr=parseMedicineText;',context);
+runInNewContext(app+'\n'+art+'\n'+ocr+'\nthis.resolve=medicineMark;this.draw=medicineArt;this.parseOcr=parseMedicineText;this.samples=showcase();',context);
 context.records=[
  {name:'板蓝根颗粒',category:'中成药'},{name:'连花清瘟胶囊',category:'中成药'},{name:'藿香正气胶囊',category:'中成药'},
  {name:'布洛芬缓释胶囊',category:'西药'},{name:'氯雷他定片',category:'西药'},{name:'维生素 C 片',category:'西药'},
@@ -46,7 +46,11 @@ assert.ok(!parsed.uncertainFields.includes('药品名称'));
 const tool=context.parseOcr('医用弹性绷带\n规格：1卷','中药');
 assert.equal(tool.category,'其他');
 assert.equal(tool.name,'医用弹性绷带');
-assert.ok(!appSource.includes('function seed()'),'不再内置示例药品');
+assert.equal(context.samples.length,12);
+assert.deepEqual([...new Set(context.samples.map(m=>m.category))],['中成药','西药','中药','其他']);
+assert.ok(context.samples.every(m=>m.sample&&!m.demo));
+assert.ok(appSource.includes('function showcase()'),'内置一次性样板药品');
+assert.ok(appSource.includes("SAMPLE_KEY='family-apothecary-showcase-v1'"),'样板只初始化一次');
 assert.ok(!appSource.includes('drawer-empty'),'不再渲染空抽屉');
 assert.ok(appSource.includes("filter(m=>!m?.demo"),'会清理旧版演示数据');
 console.log('PASS: art matching, medical fallbacks, local OCR parsing, date normalization, escaping');
